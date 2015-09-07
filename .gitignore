@@ -29,3 +29,5 @@ node_modules
 
 # visual studio code setting
 .settings/
+
+flow.md
