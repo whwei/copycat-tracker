@@ -130,4 +130,22 @@ describe('Tracker', function() {
       .then(done)
   })
   
+  it('should provide a `stop` method to stop making the value reactive', function(done) {
+    var handle = Tracker.autorun(function() {
+      logger.logger('Your favorite food is ' + getFavoriteFood())
+    })
+    
+    expect(logger.log.length).to.eql(1)
+    expect(logger.log[0]).to.eql('Your favorite food is apples')
+    
+    handle.stop()
+    
+    expect(logger.log.length).to.eql(1)
+    
+    later()
+      .then(function() {
+        expect(logger.log.length).to.eql(1)
+      })
+      .then(done)
+  })
 })
