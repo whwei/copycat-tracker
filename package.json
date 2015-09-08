@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.2.0",
+    "es6-promise-polyfill": "^1.0.0",
     "mini-meteor": "^1.0.1",
     "mocha": "^2.2.5"
   }
