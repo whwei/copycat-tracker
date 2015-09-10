@@ -5,7 +5,8 @@ var Tracker = {
   _computations: {},
   
   autorun: autorun,
-  flush: flush
+  flush: flush,
+  nonreactive: nonreactive
 }
 
 // autorun
@@ -28,6 +29,19 @@ function flush() {
 
     // prevent infinite loop    
     if (counter++ > 100) return
+  }
+}
+
+
+function nonreactive(fn) {
+  var prevComputation = Tracker.currentComputation
+  
+  Tracker.currentComputation = null
+  
+  try {
+    fn()
+  } finally {
+    Tracker.currentComputation = prevComputation
   }
 }
 

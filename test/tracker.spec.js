@@ -151,7 +151,7 @@ describe('Tracker', function() {
       .then(done)
   })
   
-  it('should provide a `flush` method to flush changes synchronously', function () {
+  it('should provide a `flush` method to flush changes synchronously', function() {
     var handle = Tracker.autorun(function() {
       logger.logger('Your favorite food is ' + getFavoriteFood())
     })
@@ -166,5 +166,17 @@ describe('Tracker', function() {
     expect(logger.log.length).to.eql(2)
     expect(logger.log[1]).to.eql('Your favorite food is pie')
     
+  })
+  
+  it('should provide a `nonreactive` method to run a function without current computation', function() {
+    var handle = Tracker.autorun(function() {
+      expect(Tracker.currentComputation).not.to.be.null
+    })
+    
+    expect(Tracker).to.respondTo('nonreactive')
+    
+    Tracker.nonreactive(function() {
+      expect(Tracker.currentComputation).to.be.null
+    })
   })
 })
