@@ -91,14 +91,14 @@ Computation.prototype.onInvalidate = function (fn) {
 
 Computation.prototype.stop = function () {
   if (!this.stopped) {
-	this.invalidated = true
-	
-	// delete computation from Tracker
-	delete Tracker._computations[this.id]
-	
-	for (var i = 0; i < this._onInvalidateCallbacks.length; i++) {
-    this._onInvalidateCallbacks[i](this);
-	}
+  	this.invalidated = true
+  	
+  	// delete computation from Tracker
+  	delete Tracker._computations[this.id]
+  	
+  	for (var i = 0; i < this._onInvalidateCallbacks.length; i++) {
+      this._onInvalidateCallbacks[i](this);
+  	}
     this._onStopCallbacks = [] 
   }
 }

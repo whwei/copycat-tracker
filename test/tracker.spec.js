@@ -140,6 +140,8 @@ describe('Tracker', function() {
     
     handle.stop()
     
+    setFavoriteFood('pie')
+    
     expect(logger.log.length).to.eql(1)
     
     later()
@@ -147,5 +149,22 @@ describe('Tracker', function() {
         expect(logger.log.length).to.eql(1)
       })
       .then(done)
+  })
+  
+  it('should provide a `flush` method to flush changes synchronously', function () {
+    var handle = Tracker.autorun(function() {
+      logger.logger('Your favorite food is ' + getFavoriteFood())
+    })
+    
+    expect(logger.log.length).to.eql(1)
+    expect(logger.log[0]).to.eql('Your favorite food is apples')
+    
+    setFavoriteFood('pie')
+    
+    Tracker.flush()
+    
+    expect(logger.log.length).to.eql(2)
+    expect(logger.log[1]).to.eql('Your favorite food is pie')
+    
   })
 })
